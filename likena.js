@@ -78,7 +78,9 @@ function ModulePopupNa(d, e, f) {
             pid: d
           },
           dataType: 'json',
-          success: console.log("sucess :" + a);
+          success: function(a) {
+            console.log(a);
+          }
         });
         // $.ajax({
         //     type: "POST",
