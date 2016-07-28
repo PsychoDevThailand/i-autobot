@@ -59,7 +59,11 @@ function getRandomPosition(a, b) {
 }
 
 function ModulePopup(d, e, f) {
-    alert("open Module");
+    // alert("open Module");
+    console.log("first param" + d);
+    console.log("second param" + e);
+    console.log("third param" + f);
+    console.log("Target: " + targetWin);
     if (!targetWin || targetWin.closed) {
         $("#Hint").html("<img src=\"img/loader.gif\" /><br />");
         var j = (screen.width / 1.9) - (screen.width / getRandomPosition(3, 4));
