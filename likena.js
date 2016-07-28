@@ -64,43 +64,43 @@ function ModulePopup(d, e, f) {
     console.log("second param" + e);
     console.log("third param" + f);
     console.log("Target: " + targetWin);
-    if (!targetWin || targetWin.closed) {
-        $("#Hint").html("<img src=\"img/loader.gif\" /><br />");
-        var j = (screen.width / 1.9) - (screen.width / getRandomPosition(3, 4));
-        var k = (screen.height / 1.9) - (screen.height / getRandomPosition(3, 4));
-        var l = hideref + e;
-        $.ajax({
-            type: "POST",
-            url: "system/modules/facebook/process.php",
-            data: {
-                get: 1,
-                url: e,
-                pid: d
-            },
-            dataType: 'json',
-            success: function(a) {
-                if (a.type === 'success') {
-                    clickready(d, e, f);
-                    var b = setTimeout(function() {
-                        targetWin.close();
-                        windowclose()
-                    }, 30000);
-                    var c = setInterval(function() {
-                        if (targetWin.closed) {
-                            clearTimeout(c);
-                            clearTimeout(b);
-                            $("#Hint").html("<img src=\"img/loader.gif\" /><br>");
-                            setTimeout(function() {
-                                do_click(d)
-                            }, 500)
-                        }
-                    }, 500)
-                }
-                $("#Hint").html(a.message)
-            }
-        });
-        targetWin = window.open(l, f, "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=" + screen.width / 1.9 + ", height=" + screen.height / 1.9 + ", top=" + k + ", left=" + j)
-    }
+    // if (!targetWin || targetWin.closed) {
+    //     $("#Hint").html("<img src=\"img/loader.gif\" /><br />");
+    //     var j = (screen.width / 1.9) - (screen.width / getRandomPosition(3, 4));
+    //     var k = (screen.height / 1.9) - (screen.height / getRandomPosition(3, 4));
+    //     var l = hideref + e;
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "system/modules/facebook/process.php",
+    //         data: {
+    //             get: 1,
+    //             url: e,
+    //             pid: d
+    //         },
+    //         dataType: 'json',
+    //         success: function(a) {
+    //             if (a.type === 'success') {
+    //                 clickready(d, e, f);
+    //                 var b = setTimeout(function() {
+    //                     targetWin.close();
+    //                     windowclose()
+    //                 }, 30000);
+    //                 var c = setInterval(function() {
+    //                     if (targetWin.closed) {
+    //                         clearTimeout(c);
+    //                         clearTimeout(b);
+    //                         $("#Hint").html("<img src=\"img/loader.gif\" /><br>");
+    //                         setTimeout(function() {
+    //                             do_click(d)
+    //                         }, 500)
+    //                     }
+    //                 }, 500)
+    //             }
+    //             $("#Hint").html(a.message)
+    //         }
+    //     });
+    //     targetWin = window.open(l, f, "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=" + screen.width / 1.9 + ", height=" + screen.height / 1.9 + ", top=" + k + ", left=" + j)
+    // }
 }
 
 function do_click(b) {
