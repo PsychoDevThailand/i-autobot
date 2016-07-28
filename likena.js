@@ -58,7 +58,7 @@ function getRandomPosition(a, b) {
     return parseFloat(Math.random() * (b - a) + a).toFixed(2)
 }
 
-function ModulePopup(d, e, f) {
+function ModulePopupNa(d, e, f) {
     // alert("open Module");
     console.log("first param" + d);
     console.log("second param" + e);
