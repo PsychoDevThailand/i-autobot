@@ -1,8 +1,142 @@
+var report_msg = 'Please tell us why do you want to report this page:';
+var start_click = 1;
+var end_click = 14;
 
-	var report_msg = 'Please tell us why do you want to report this page:';
-	var start_click = 1;
-	var end_click = 14;
-	eval(function(p,a,c,k,e,r){e=function(c){return c.toString(a)};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('0 7(a,b,c){8 e=9(f);2(e){$.3({4:"g",5:"h/3.i",j:{a:\'k\',l:a,5:b,m:c,n:e},o:\'p\',6:0(d){2(d.4===\'6\'){q(a,\'1\')}r(d.s)}})}}',29,29,'function||if|ajax|type|url|success|report_page|var|prompt||||||report_msg|POST|system|php|data|reportPage|id|module|reason|dataType|json|skipuser|alert|message'.split('|'),0,{}))
-	var hideref = '';
-	eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('0 G(){v(E<1g){E=E+1}1t{V.1l(1b)}}0 1s(b,d){$("#n").o("<p x=\\"p/F.H\\" /><B>");$.J({i:"I",u:"D/A/w/K.y",z:{1u:\'17\',19:b},q:0(a){$("#n").o(a);1c(b,d);g(b);G()}})}8 7;0 C(a,b){1v W(X.Y()*(b-a)+a).11(2)}0 13(d,e,f){v(!7||7.T){$("#n").o("<p x=\\"p/F.H\\" /><B />");8 j=(6.r/1.9)-(6.r/C(3,4));8 k=(6.t/1.9)-(6.t/C(3,4));8 l=1E+e;$.J({i:"I",u:"D/A/w/K.y",z:{Z:1,u:e,10:d},M:\'N\',q:0(a){v(a.i===\'q\'){12(d,e,f);8 b=O(0(){7.14();15()},16);8 c=18(0(){v(7.T){L(c);L(b);$("#n").o("<p x=\\"p/F.H\\" /><B>");O(0(){P(d)},Q)}},Q)}$("#n").o(a.R)}});7=1d.1e(l,f,"1f=5, V=5, 1h=5, 1i=5, 1j=5, 1k=S, 1m=S, 1n=5, r="+6.r/1.9+", t="+6.t/1.9+", 1o="+k+", 1p="+j)}}0 P(b){$.J({i:"I",u:"D/A/w/K.y",z:{i:1,1q:b},M:\'N\',q:0(a){1r(a.i){m\'q\':g(b);G();U(a.s);h;m\'1w\':g(b);h;m\'1x\':g(b);U(a.s);h;m\'1y\':g(b);1z(a.s);h;m\'1A\':1B(a.s);h;m\'1C\':1D();h}$("#n").o(a.R)}})}0 g(a){$(\'#\'+a).1a()}',62,103,'function|||||no|screen|targetWin|var||||||||remove|break|type||||case|Hint|html|img|success|width|cpc|height|url|if|facebook|src|php|data|modules|br|getRandomPosition|system|start_click|loader|click_refresh|gif|POST|ajax|process|clearTimeout|dataType|json|setTimeout|do_click|500|message|yes|closed|clickdone|location|parseFloat|Math|random|get|pid|toFixed|clickready|ModulePopup|close|windowclose|30000|skip|setInterval|sid|hide|true|clickskip|window|open|toolbar|end_click|directories|status|menubar|scrollbars|reload|resizable|copyhistory|top|left|id|switch|skipuser|else|step|return|not_available|no_coin|unlike|clickunlike|spam|clickspam|error|clickfail|hideref'.split('|'),0,{}))
+function report_page(a, b, c) {
+    var e = prompt(report_msg);
+    if (e) {
+        $.ajax({
+            type: "POST",
+            url: "system/ajax.php",
+            data: {
+                a: 'reportPage',
+                id: a,
+                url: b,
+                module: c,
+                reason: e
+            },
+            dataType: 'json',
+            success: function(d) {
+                if (d.type === 'success') {
+                    skipuser(a, '1')
+                }
+                alert(d.message)
+            }
+        })
+    }
+}
+var hideref = '';
 
+function click_refresh() {
+    if (start_click < end_click) {
+        start_click = start_click + 1
+    } else {
+        location.reload(true)
+    }
+}
+
+function skipuser(b, d) {
+    $("#Hint").html("<img src=\"img/loader.gif\" /><br>");
+    $.ajax({
+        type: "POST",
+        url: "system/modules/facebook/process.php",
+        data: {
+            step: 'skip',
+            sid: b
+        },
+        success: function(a) {
+            $("#Hint").html(a);
+            clickskip(b, d);
+            remove(b);
+            click_refresh()
+        }
+    })
+}
+var targetWin;
+
+function getRandomPosition(a, b) {
+    return parseFloat(Math.random() * (b - a) + a).toFixed(2)
+}
+
+function ModulePopup(d, e, f) {
+    if (!targetWin || targetWin.closed) {
+        $("#Hint").html("<img src=\"img/loader.gif\" /><br />");
+        var j = (screen.width / 1.9) - (screen.width / getRandomPosition(3, 4));
+        var k = (screen.height / 1.9) - (screen.height / getRandomPosition(3, 4));
+        var l = hideref + e;
+        $.ajax({
+            type: "POST",
+            url: "system/modules/facebook/process.php",
+            data: {
+                get: 1,
+                url: e,
+                pid: d
+            },
+            dataType: 'json',
+            success: function(a) {
+                if (a.type === 'success') {
+                    clickready(d, e, f);
+                    var b = setTimeout(function() {
+                        targetWin.close();
+                        windowclose()
+                    }, 30000);
+                    var c = setInterval(function() {
+                        if (targetWin.closed) {
+                            clearTimeout(c);
+                            clearTimeout(b);
+                            $("#Hint").html("<img src=\"img/loader.gif\" /><br>");
+                            setTimeout(function() {
+                                do_click(d)
+                            }, 500)
+                        }
+                    }, 500)
+                }
+                $("#Hint").html(a.message)
+            }
+        });
+        targetWin = window.open(l, f, "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=" + screen.width / 1.9 + ", height=" + screen.height / 1.9 + ", top=" + k + ", left=" + j)
+    }
+}
+
+function do_click(b) {
+    $.ajax({
+        type: "POST",
+        url: "system/modules/facebook/process.php",
+        data: {
+            type: 1,
+            id: b
+        },
+        dataType: 'json',
+        success: function(a) {
+            switch (a.type) {
+                case 'success':
+                    remove(b);
+                    click_refresh();
+                    clickdone(a.cpc);
+                    break;
+                case 'not_available':
+                    remove(b);
+                    break;
+                case 'no_coin':
+                    remove(b);
+                    clickdone(a.cpc);
+                    break;
+                case 'unlike':
+                    remove(b);
+                    clickunlike(a.cpc);
+                    break;
+                case 'spam':
+                    clickspam(a.cpc);
+                    break;
+                case 'error':
+                    clickfail();
+                    break
+            }
+            $("#Hint").html(a.message)
+        }
+    })
+}
+
+function remove(a) {
+    $('#' + a).hide()
+}
